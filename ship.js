@@ -1,9 +1,19 @@
 function ship(length) {
   var hits = 0;
-  var sunk = false; 
-  let getLength = ()=>{
+  var sunk = false;
+  let getLength = () => {
     return length;
-  }
-  return {getLength};
+  };
+  let getHits = () => {
+    return hits;
+  };
+  let isSunk = () => {
+    return sunk;
+  };
+  let isHit = () => {
+    hits++;
+    if (hits >= length) sunk = true;
+  };
+  return { getLength, getHits, isHit, isSunk };
 }
 module.exports = ship;
