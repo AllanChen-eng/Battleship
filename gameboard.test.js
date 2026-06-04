@@ -23,8 +23,8 @@ test("Ship properly placed on gameboard", () => {
   let board = gameboard();
   board.createBoard(10, 10);
   board.placeShip(5, 2, 1, "horizontal");
-  for (let x = 2; x < 5 + 2; x++) {
-    expect(board.getBoard()[x][1].getLength()).toBe(5);
+  for (let col = 2; col < 5 + 2; col++) {
+    expect(board.getBoard()[1][col].getLength()).toBe(5);
   }
 });
 
@@ -60,7 +60,7 @@ test("Receive Attack method should cause ships to call isHit() for ship in tile"
   board.createBoard(10, 10);
   board.placeShip(5, 5, 5, "vertical");
   board.receiveAttack(5, 6);
-  expect(board.getBoard()[5][6].getHits()).toBe(1);
+  expect(board.getBoard()[6][5].getHits()).toBe(1);
 });
 test("Receive attack should not accept attack if already hit at that spot", () => {
   let board = gameboard();
@@ -78,4 +78,13 @@ test("Gameboard should be able to retrieve a list of all missed shots", () => {
   board.receiveAttack(9, 9);
   expect(board.getMissedShots()).toEqual([{ x: 0, y: 0 },{x: 5,y: 5},{x: 7, y: 4},{x: 9, y: 9}]);
 });
-test("Gameboard should be able to report if all ships sunk", () => {});
+
+test("Gameboard should be able to report if all ships sunk", () => {
+    let board = gameboard();
+    board.createBoard(1,5);
+    board.placeShip(5,0,0,"vertical");
+    for(let row = 0; row<5; row++){
+      board.receiveAttack(0,row);
+    }
+    expect(board.hasLost()).toBe(true);
+});
