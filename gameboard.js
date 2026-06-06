@@ -1,6 +1,6 @@
-const ship = require("./ship");
+import {ship} from "./ship.js";
 
-function gameboard() {
+export function gameboard() {
   let shipPositions = 0;
   let attackPositions = 0;
   let missedShots = [];
@@ -116,5 +116,3 @@ function gameboard() {
     getShips,
   };
 }
-
-module.exports = gameboard;

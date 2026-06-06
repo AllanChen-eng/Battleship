@@ -1,5 +1,5 @@
-const ship = require("./ship");
 
+import {ship} from "./ship";
 test("Get ship's length", () => {
   expect(ship(5).getLength()).toBe(5);
 });

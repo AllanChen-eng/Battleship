@@ -1,4 +1,4 @@
-function ship(length) {
+export function ship(length) {
   var hits = 0;
   var sunk = false;
   let getLength = () => {
@@ -16,4 +16,3 @@ function ship(length) {
   };
   return { getLength, getHits, isHit, isSunk };
 }
-module.exports = ship;

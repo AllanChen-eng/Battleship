@@ -1,5 +1,5 @@
-const gameboard = require("./gameboard");
 
+import {gameboard} from "./gameboard";
 test("Get the current Board", () => {
   let board = gameboard();
   expect(board.getBoard()).toEqual(0);
