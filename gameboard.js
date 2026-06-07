@@ -1,4 +1,4 @@
-import {ship} from "./ship.js";
+import { ship } from "./ship.js";
 
 export function gameboard() {
   let shipPositions = 0;
@@ -49,14 +49,7 @@ export function gameboard() {
         startColumn < 0 ||
         startRow + length > shipPositions.length
       ) {
-        throw new Error(
-          "Invalid placement " +
-            length +
-            " " +
-            startRow +
-            " ship length " +
-            shipPositions.length,
-        );
+        throw new Error("Invalid placement");
       }
 
       for (let row = startRow; row < startRow + length; row++) {
@@ -79,17 +72,20 @@ export function gameboard() {
 
     if (tile == null) {
       missedShots.push({ x: column, y: row });
-      attackPositions[row][column] = "missed";
+      attackPositions[row][column] = "miss";
     } else {
       tile.isHit();
       attackPositions[row][column] = "hit";
+      console.log("ship has been hit!");
     }
   };
 
   let getMissedShots = () => {
     return missedShots;
   };
-
+  let getAttackPositions = () => {
+    return attackPositions;
+  };
   let hasLost = () => {
     if (ships.length == 0) {
       throw new Error("No ships on gameboard");
@@ -112,6 +108,7 @@ export function gameboard() {
     placeShip,
     receiveAttack,
     getMissedShots,
+    getAttackPositions,
     hasLost,
     getShips,
   };

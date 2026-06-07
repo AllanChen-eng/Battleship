@@ -88,3 +88,20 @@ test("Gameboard should be able to report if all ships sunk", () => {
     }
     expect(board.hasLost()).toBe(true);
 });
+test("Gameboard should retrieve a 2D array of hits and misses", ()=>{
+let board= gameboard();
+  board.createBoard(4, 6);
+  board.receiveAttack(0, 0);
+  board.receiveAttack(2, 3);
+  board.receiveAttack(3, 4);
+  board.receiveAttack(0, 5);
+    let expected = [
+    ["miss", null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, "miss", null],
+    [null, null, null, "miss"],
+    ["miss", null, null, null],
+  ];
+  expect(board.getAttackPositions()).toEqual(expected);
+});
