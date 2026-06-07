@@ -25,10 +25,10 @@ function renderBoard(player) {
       let flexBasis = 100 / newGrid.length;
       newDiv.style.flexBasis = `${flexBasis}%`;
       let attackPositionsArray = player.getGameboard().getAttackPositions();
-      if(attackPositionsArray[row][column]=="miss"){
+      if(attackPositionsArray[column][row]=="miss"){
         newDiv.style.backgroundColor = "crimson";
         console.log("marking a missed spot");
-      }else if(attackPositionsArray[row][column]=="hit"){
+      }else if(attackPositionsArray[column][row]=="hit"){
         newDiv.textContent = "x";
       }
       container.appendChild(newDiv);

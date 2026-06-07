@@ -72,10 +72,10 @@ export function gameboard() {
 
     if (tile == null) {
       missedShots.push({ x: column, y: row });
-      attackPositions[row][column] = "miss";
+      attackPositions[column][row] = "miss";
     } else {
       tile.isHit();
-      attackPositions[row][column] = "hit";
+      attackPositions[column][row] = "hit";
       console.log("ship has been hit!");
     }
   };
