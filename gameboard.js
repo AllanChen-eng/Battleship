@@ -10,7 +10,7 @@ export function gameboard() {
     return shipPositions;
   };
 
-  let createBoard = (sizeColumns, sizeRows) => {
+  let createBoard = (sizeRows, sizeColumns) => {
     const grid = Array(sizeRows)
       .fill(null)
       .map(() => Array(sizeColumns).fill(null));
@@ -24,7 +24,7 @@ export function gameboard() {
     attackPositions = grid2;
   };
 
-  let placeShip = (length, startColumn, startRow, direction) => {
+  let placeShip = (length, startRow, startColumn, direction) => {
     let newShip = ship(length);
 
     if (direction == "horizontal") {
@@ -63,7 +63,7 @@ export function gameboard() {
     ships.push(newShip);
   };
 
-  let receiveAttack = (column, row) => {
+  let receiveAttack = (row, column) => {
     let tile = shipPositions[row][column];
 
     if (attackPositions[row][column] != null) {
@@ -72,10 +72,10 @@ export function gameboard() {
 
     if (tile == null) {
       missedShots.push({ x: column, y: row });
-      attackPositions[column][row] = "miss";
+      attackPositions[row][column] = "miss";
     } else {
       tile.isHit();
-      attackPositions[column][row] = "hit";
+      attackPositions[row][column] = "hit";
       console.log("ship has been hit!");
     }
   };

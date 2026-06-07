@@ -25,10 +25,10 @@ function renderBoard(player) {
       let flexBasis = 100 / newGrid.length;
       newDiv.style.flexBasis = `${flexBasis}%`;
       let attackPositionsArray = player.getGameboard().getAttackPositions();
-      if(attackPositionsArray[column][row]=="miss"){
+      if(attackPositionsArray[row][column]=="miss"){
         newDiv.style.backgroundColor = "crimson";
         console.log("marking a missed spot");
-      }else if(attackPositionsArray[column][row]=="hit"){
+      }else if(attackPositionsArray[row][column]=="hit"){
         newDiv.textContent = "x";
       }
       container.appendChild(newDiv);
@@ -48,7 +48,7 @@ function setClickFor(player) {
       let column = Number(e.target.dataset.column);
       let row = Number(e.target.dataset.row);
       let playerTile = e.target.dataset.player
-      player.getGameboard().receiveAttack(column,row);
+      player.getGameboard().receiveAttack(row,column);
       renderBoard(player);
       console.log("Printing dataset column:" + column + "row:" + row + "player:" + playerTile);
     })
