@@ -1,12 +1,12 @@
 export function UIFactory() {
-  function renderOpponentBoard(player) {
+  function renderBoardAsOpponent(player) {
     let location;
     let newGrid = player.getGameboard().getBoard();
     if (player.getName().includes("player1")) {
       //This is the board the player attacks, therefore it should be on the "opponent's" side
-      location = "player2-container";
-    } else if (player.getName().includes("player2")) {
       location = "player1-container";
+    } else if (player.getName().includes("player2")) {
+      location = "player2-container";
     } else {
       throw new Error("Unknown grid user. Please use player1 or player2");
     }
@@ -34,9 +34,39 @@ export function UIFactory() {
     }
     setClickFor(player);
   }
-  function renderAllyBoard(player) {
+  function renderBoardAsAlly(player) {
     //No event listeners here, just locations of hits and misses
+    let location;
+    let newGrid = player.getGameboard().getBoard();
+    if (player.getName().includes("player1")) {
+      //This is the board the player attacks, therefore it should be on the "opponent's" side
+      location = "player1-container";
+    } else if (player.getName().includes("player2")) {
+      location = "player2-container";
+    } else {
+      throw new Error("Unknown grid user. Please use player1 or player2");
+    }
+    const container = document.querySelector(`#${location}`);
+    container.innerHTML = "";
+    for (let row = 0; row < newGrid.length; row++) {
+      for (let column = 0; column < newGrid[0].length; column++) {
+        const newDiv = document.createElement("div");
+        newDiv.style.backgroundColor = "white";
+        newDiv.setAttribute("class", "gridBox");
+        newDiv.dataset.column = column;
+        newDiv.dataset.row = row;
+        newDiv.dataset.player = player.getName();
+        let flexBasis = 100 / newGrid.length;
+        newDiv.style.flexBasis = `${flexBasis}%`;
+        let shipPositionsArray = player.getGameboard().getShipPositions();
+        if (shipPositionsArray[row][column] != null) {
+          newDiv.style.backgroundColor = "blue";
+        }
+        container.appendChild(newDiv);
+      }
+    }
   }
+
   function setClickFor(player) {
     const hover = document.querySelectorAll(
       `.gridBox[data-player="${player.getName()}"]`,
@@ -59,7 +89,7 @@ export function UIFactory() {
             `${player.getName()} targeted cordinates (${column}, ${row})!`,
           );
         }
-        renderOpponentBoard(player);
+        renderBoardAsOpponent(player);
       });
       box.addEventListener("mouseleave", (e) => {
         e.target.style.backgroundColor = e.target.dataset.originalColor;
@@ -71,5 +101,5 @@ export function UIFactory() {
     container.innerHTML = "";
     container.textContent = `${msg}`;
   }
-  return { renderOpponentBoard, renderAllyBoard, makeAnnouncement };
+  return { renderBoardAsOpponent, renderBoardAsAlly, makeAnnouncement };
 }

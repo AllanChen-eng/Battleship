@@ -103,6 +103,9 @@ export function gameboard() {
   let getShips = () => {
     return ships;
   };
+  let getShipPositions = ()=>{
+    return shipPositions;
+  }
 
   return {
     getBoard,
@@ -113,5 +116,6 @@ export function gameboard() {
     getAttackPositions,
     hasLost,
     getShips,
+    getShipPositions
   };
 }
