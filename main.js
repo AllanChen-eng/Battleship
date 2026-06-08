@@ -4,5 +4,7 @@ const player1 = player("player1");
 const player2 = player("player2");
 const UI = UIFactory();
 player1.makeNewGameboard(10,10);
-UI.renderBoard(player1);
+player2.makeNewGameboard(10,10);
+UI.renderOpponentBoard(player2);
+UI.renderAllyBoard(player2);
 console.log("main script has been ran");

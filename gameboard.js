@@ -71,12 +71,14 @@ export function gameboard() {
     }
 
     if (tile == null) {
-      missedShots.push({ x: column, y: row });
+      missedShots.push({ row, column });
       attackPositions[row][column] = "miss";
     } else {
       tile.isHit();
       attackPositions[row][column] = "hit";
-      console.log("ship has been hit!");
+      if(tile.isSunk()){
+        return true;
+      }
     }
   };
 

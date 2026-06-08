@@ -24,11 +24,13 @@ body {
   aspect-ratio: 1/1;
   min-width: 0;
   min-height: 0;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #player1-card,
 #player2-card {
-  background-color: coral;
+  background-color: lightgray;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +38,7 @@ body {
   align-items: center;
   padding: 2%;
 }
-#player1-container {
+#player1-container,#player2-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
