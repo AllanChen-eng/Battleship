@@ -1,6 +1,7 @@
 import { gameboard } from "./gameboard.js";
 export function player(name) {
   let board;
+  let screenName;
   let makeNewGameboard = (sizeColumns, sizeRows) => {
     board = gameboard();
     board.createBoard(sizeColumns, sizeRows);
@@ -15,5 +16,11 @@ export function player(name) {
     //should be player1 or player2
     return name;
   };
-  return { makeNewGameboard, getGameboard, getName };
+  let setScreenName = (name) =>{
+    screenName = name;
+  }
+  let getScreenName = () =>{
+    return screenName;
+  }
+  return { makeNewGameboard, getGameboard, getName, setScreenName, getScreenName };
 }

@@ -25,21 +25,20 @@ export function UIFactory() {
         newDiv.style.flexBasis = `${flexBasis}%`;
         let attackPositionsArray = player.getGameboard().getAttackPositions();
         if (attackPositionsArray[row][column] == "miss") {
-          newDiv.style.backgroundColor = "crimson";
+          newDiv.style.backgroundColor = "lightcoral";
         } else if (attackPositionsArray[row][column] == "hit") {
-          newDiv.textContent = "x";
+          newDiv.textContent = "X";
+          newDiv.style.backgroundColor = "crimson";
         }
         container.appendChild(newDiv);
       }
     }
-    setClickFor(player);
+    //setClickFor(player);
   }
-  function renderBoardAsAlly(player) {
+  function renderBoardAsAlly(player,location = "player1") {
     //No event listeners here, just locations of hits and misses
-    let location;
     let newGrid = player.getGameboard().getBoard();
     if (player.getName().includes("player1")) {
-      //This is the board the player attacks, therefore it should be on the "opponent's" side
       location = "player1-container";
     } else if (player.getName().includes("player2")) {
       location = "player2-container";
@@ -67,39 +66,44 @@ export function UIFactory() {
     }
   }
 
-  function setClickFor(player) {
-    const hover = document.querySelectorAll(
-      `.gridBox[data-player="${player.getName()}"]`,
-    );
-    hover.forEach((box) => {
-      box.addEventListener("mouseenter", (e) => {
-        e.target.dataset.originalColor = window.getComputedStyle(
-          e.target,
-        ).backgroundColor;
-        e.target.style.backgroundColor = "crimson";
-      });
-      box.addEventListener("click", (e) => {
-        let column = Number(e.target.dataset.column);
-        let row = Number(e.target.dataset.row);
-        let playerTile = e.target.dataset.player;
-        if (player.getGameboard().receiveAttack(row, column)) {
-          makeAnnouncement("Ship has been sunk!");
-        } else {
-          makeAnnouncement(
-            `${player.getName()} targeted cordinates (${column}, ${row})!`,
-          );
-        }
-        renderBoardAsOpponent(player);
-      });
-      box.addEventListener("mouseleave", (e) => {
-        e.target.style.backgroundColor = e.target.dataset.originalColor;
-      });
-    });
-  }
+
   function makeAnnouncement(msg) {
     let container = document.querySelector("#announcer");
     container.innerHTML = "";
     container.textContent = `${msg}`;
   }
-  return { renderBoardAsOpponent, renderBoardAsAlly, makeAnnouncement };
+  function setRightsideName(name) {
+    const heading = document.querySelector("#player2-card h3");
+    heading.innerHTML = "";
+    heading.textContent = `${name}`;
+  }
+
+  function renderShipDeploymentPage(availableShips, player,rotation) {
+    let left = document.querySelector("#player1-container");
+    let right = document.querySelector("#player2-container");
+    left.innerHTML = "";
+    right.innerHTML = "";
+    // grid of avaiable ships
+        for (let row = 0; row < newGrid.length; row++) {
+      for (let column = 0; column < newGrid[0].length; column++) {
+        const newDiv = document.createElement("div");
+        newDiv.style.backgroundColor = "white";
+        newDiv.setAttribute("class", "borderlessBox");
+        newDiv.dataset.column = column;
+        newDiv.dataset.row = row;
+        newDiv.dataset.player = player.getName();
+        let flexBasis = 100 / newGrid.length;
+        newDiv.style.flexBasis = `${flexBasis}%`;
+        document.querySelector("#player1-container").appendChild(newDiv);
+      }
+    }
+    //grid of current ships in the player's board
+    renderBoardAsAlly(player, "player2");
+  }
+  return {
+    renderBoardAsOpponent,
+    renderBoardAsAlly,
+    makeAnnouncement,
+    setRightsideName,
+  };
 }
