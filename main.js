@@ -3,6 +3,7 @@ import { player } from "./player.js";
 const player1 = player("player1");
 const player2 = player("player2");
 player2.setScreenName("Computer");
+let currentTurn = player1;
 const UI = UIFactory();
 UI.setRightsideName(player2.getScreenName());
 player1.makeNewGameboard(10, 10);
@@ -10,15 +11,18 @@ player2.makeNewGameboard(10, 10);
 UI.renderBoardAsOpponent(player2);
 UI.renderBoardAsAlly(player1);
 setCurrentPlayer(player1);
-function currentPlayer(player) {
+function swapTurn() {
   //changes the view to match current player - opponent's board is clickable while
   //ally board shows current ship locations
-  if (player.getName() == "player1") {
+  if (currentTurn.getName() == "player1") {
+    currentTurn = player2;
     UI.renderBoardAsAlly(player1);
     UI.renderBoardAsOpponent(player2);
+    setCurrentPlayer(player1);
   } else {
-    UI.renderBoardAsAlly(player2);
-    UI.renderBoardAsOpponent(player1);
+    // for now, just play ai(player2) move
+    currentTurn = player1;
+    getComputerMove();
   }
 }
 function setCurrentPlayer(player) {
@@ -44,18 +48,27 @@ function setCurrentPlayer(player) {
           `${player.getName()} targeted cordinates (${column}, ${row})!`,
         );
       }
-      UI.renderBoardAsOpponent(opponent);
-      //ideally, we want to pass the turn
-      setCurrentPlayer(player);
+      swapTurn();
     });
     box.addEventListener("mouseleave", (e) => {
       e.target.style.backgroundColor = e.target.dataset.originalColor;
     });
   });
 }
-function makeComputerMove(){
-    //while(doesnotThrow)
-    //keep making receiveAttack calls then break out of loop
-    //swap turns
+function getComputerMove() {
+  const board = player2.getGameboard();
+  const rows = board.getShipPositions().length;
+  const cols = board.getShipPositions()[0].length;
+
+  while (true) {
+    const row = Math.floor(Math.random() * rows);
+    const col = Math.floor(Math.random() * cols);
+    try {
+      player1.getGameboard().receiveAttack(row, col);
+      break;
+    } catch {
+    }
+  }
+  swapTurn();
 }
 console.log("main script has been ran");

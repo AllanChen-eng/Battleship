@@ -61,6 +61,12 @@ export function UIFactory() {
         if (shipPositionsArray[row][column] != null) {
           newDiv.style.backgroundColor = "blue";
         }
+        let attackTargettedPositionsArray = player.getGameboard().getAttackPositions();
+        if(attackTargettedPositionsArray[row][column] == "miss"){
+          newDiv.style.backgroundColor = "lightcoral";
+        }else if(attackTargettedPositionsArray[row][column] == "hit"){
+          newDiv.style.backgroundColor = "black";
+        }
         container.appendChild(newDiv);
       }
     }
