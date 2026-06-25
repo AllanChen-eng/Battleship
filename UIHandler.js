@@ -27,15 +27,19 @@ export function UIFactory() {
         if (attackPositionsArray[row][column] == "miss") {
           newDiv.style.backgroundColor = "lightcoral";
         } else if (attackPositionsArray[row][column] == "hit") {
+          if (player.getGameboard().getShipPositions()[row][column].isSunk()) {
+            newDiv.style.backgroundColor = "gray";
+          } else {
+            newDiv.style.backgroundColor = "crimson";
+          }
           newDiv.textContent = "X";
-          newDiv.style.backgroundColor = "crimson";
         }
         container.appendChild(newDiv);
       }
     }
     //setClickFor(player);
   }
-  function renderBoardAsAlly(player,location = "player1") {
+  function renderBoardAsAlly(player, location = "player1") {
     //No event listeners here, just locations of hits and misses
     let newGrid = player.getGameboard().getBoard();
     if (player.getName().includes("player1")) {
@@ -61,17 +65,22 @@ export function UIFactory() {
         if (shipPositionsArray[row][column] != null) {
           newDiv.style.backgroundColor = "blue";
         }
-        let attackTargettedPositionsArray = player.getGameboard().getAttackPositions();
-        if(attackTargettedPositionsArray[row][column] == "miss"){
+        let attackTargettedPositionsArray = player
+          .getGameboard()
+          .getAttackPositions();
+        let pos = attackTargettedPositionsArray[row][column];
+        if (pos == "miss") {
           newDiv.style.backgroundColor = "lightcoral";
-        }else if(attackTargettedPositionsArray[row][column] == "hit"){
-          newDiv.style.backgroundColor = "black";
+        } else if (pos == "hit") {
+          if (shipPositionsArray[row][column].isSunk()) {
+            newDiv.style.backgroundColor = "gray";
+          }
+          newDiv.textContent = "X";
         }
         container.appendChild(newDiv);
       }
     }
   }
-
 
   function makeAnnouncement(msg) {
     let container = document.querySelector("#announcer");
@@ -84,13 +93,13 @@ export function UIFactory() {
     heading.textContent = `${name}`;
   }
 
-  function renderShipDeploymentPage(availableShips, player,rotation) {
+  function renderShipDeploymentPage(availableShips, player, rotation) {
     let left = document.querySelector("#player1-container");
     let right = document.querySelector("#player2-container");
     left.innerHTML = "";
     right.innerHTML = "";
     // grid of avaiable ships
-        for (let row = 0; row < newGrid.length; row++) {
+    for (let row = 0; row < newGrid.length; row++) {
       for (let column = 0; column < newGrid[0].length; column++) {
         const newDiv = document.createElement("div");
         newDiv.style.backgroundColor = "white";

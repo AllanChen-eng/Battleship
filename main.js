@@ -8,9 +8,9 @@ const UI = UIFactory();
 UI.setRightsideName(player2.getScreenName());
 player1.makeNewGameboard(10, 10);
 player2.makeNewGameboard(10, 10);
-UI.renderBoardAsOpponent(player2);
-UI.renderBoardAsAlly(player1);
-setCurrentPlayer(player1);
+//UI.renderBoardAsOpponent(player2);
+//UI.renderBoardAsAlly(player1);
+swapTurn();
 function swapTurn() {
   //changes the view to match current player - opponent's board is clickable while
   //ally board shows current ship locations
@@ -48,7 +48,11 @@ function setCurrentPlayer(player) {
           `${player.getName()} targeted cordinates (${column}, ${row})!`,
         );
       }
-      swapTurn();
+      if (opponent.getGameboard().hasLost()) {
+        renderScoreScreen(player);
+      } else {
+        swapTurn();
+      }
     });
     box.addEventListener("mouseleave", (e) => {
       e.target.style.backgroundColor = e.target.dataset.originalColor;
@@ -66,9 +70,13 @@ function getComputerMove() {
     try {
       player1.getGameboard().receiveAttack(row, col);
       break;
-    } catch {
-    }
+    } catch {}
   }
   swapTurn();
+}
+function renderScoreScreen(winner) {
+  UI.makeAnnouncement(`${winner.getScreenName()} has won!`);
+  UI.renderBoardAsAlly(player1);
+  UI.renderBoardAsAlly(player2);
 }
 console.log("main script has been ran");

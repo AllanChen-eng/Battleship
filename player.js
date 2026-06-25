@@ -20,7 +20,11 @@ export function player(name) {
     screenName = name;
   }
   let getScreenName = () =>{
+    if(screenName!=null){
     return screenName;
+    }else{
+      return name;
+    }
   }
   return { makeNewGameboard, getGameboard, getName, setScreenName, getScreenName };
 }
