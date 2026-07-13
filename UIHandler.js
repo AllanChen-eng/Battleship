@@ -92,33 +92,16 @@ export function UIFactory() {
     heading.innerHTML = "";
     heading.textContent = `${name}`;
   }
-
-  function renderShipDeploymentPage(availableShips, player, rotation) {
-    let left = document.querySelector("#player1-container");
-    let right = document.querySelector("#player2-container");
-    left.innerHTML = "";
-    right.innerHTML = "";
-    // grid of avaiable ships
-    for (let row = 0; row < newGrid.length; row++) {
-      for (let column = 0; column < newGrid[0].length; column++) {
-        const newDiv = document.createElement("div");
-        newDiv.style.backgroundColor = "white";
-        newDiv.setAttribute("class", "borderlessBox");
-        newDiv.dataset.column = column;
-        newDiv.dataset.row = row;
-        newDiv.dataset.player = player.getName();
-        let flexBasis = 100 / newGrid.length;
-        newDiv.style.flexBasis = `${flexBasis}%`;
-        document.querySelector("#player1-container").appendChild(newDiv);
-      }
-    }
-    //grid of current ships in the player's board
-    renderBoardAsAlly(player, "player2");
+  function setLeftSideName(name) {
+    const heading = document.querySelector("#player1-card h3");
+    heading.innerHTML = "";
+    heading.textContent = `${name}`;
   }
   return {
     renderBoardAsOpponent,
     renderBoardAsAlly,
     makeAnnouncement,
     setRightsideName,
+    setLeftSideName,
   };
 }

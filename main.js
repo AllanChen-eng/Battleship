@@ -1,16 +1,20 @@
 import { UIFactory } from "./UIHandler.js";
 import { player } from "./player.js";
+import { DeployementPage } from "./DeployementPage.js";
 const player1 = player("player1");
 const player2 = player("player2");
+let fleet = [5,4,3,2];
 player2.setScreenName("Computer");
 let currentTurn = player1;
 const UI = UIFactory();
-UI.setRightsideName(player2.getScreenName());
-player1.makeNewGameboard(10, 10);
-player2.makeNewGameboard(10, 10);
-//UI.renderBoardAsOpponent(player2);
-//UI.renderBoardAsAlly(player1);
-swapTurn();
+
+function startGame() {
+  currentTurn = player1;
+  UI.setRightsideName(player2.getScreenName());
+  player1.makeNewGameboard(10, 10);
+  player2.makeNewGameboard(10, 10);
+  swapTurn();
+}
 function swapTurn() {
   //changes the view to match current player - opponent's board is clickable while
   //ally board shows current ship locations
@@ -69,6 +73,7 @@ function getComputerMove() {
     const col = Math.floor(Math.random() * cols);
     try {
       player1.getGameboard().receiveAttack(row, col);
+      UI.makeAnnouncement(`The Computer has targetted ${col},${row}!`);
       break;
     } catch {}
   }
@@ -79,4 +84,12 @@ function renderScoreScreen(winner) {
   UI.renderBoardAsAlly(player1);
   UI.renderBoardAsAlly(player2);
 }
+const deployment = document.querySelector("#deployment-btn");
+deployment.addEventListener("click",()=>{
+console.log("deployment button hit");
+const deploymentPage = DeployementPage(fleet,player1,"vertical");
+deploymentPage.renderShipDeploymentPage();
+deployment.remove();
+});
+startGame();
 console.log("main script has been ran");
