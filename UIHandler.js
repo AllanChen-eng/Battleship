@@ -4,9 +4,9 @@ export function UIFactory() {
     let newGrid = player.getGameboard().getBoard();
     if (player.getName().includes("player1")) {
       //This is the board the player attacks, therefore it should be on the "opponent's" side
-      location = "player1-container";
+      location = "player1-grid-container";
     } else if (player.getName().includes("player2")) {
-      location = "player2-container";
+      location = "player2-grid-container";
     } else {
       throw new Error("Unknown grid user. Please use player1 or player2");
     }
@@ -43,9 +43,9 @@ export function UIFactory() {
     //No event listeners here, just locations of hits and misses
     let newGrid = player.getGameboard().getBoard();
     if (player.getName().includes("player1")) {
-      location = "player1-container";
+      location = "player1-grid-container";
     } else if (player.getName().includes("player2")) {
-      location = "player2-container";
+      location = "player2-grid-container";
     } else {
       throw new Error("Unknown grid user. Please use player1 or player2");
     }

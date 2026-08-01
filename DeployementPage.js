@@ -15,8 +15,8 @@ export function DeployementPage(
   }
 
   function renderShipDeploymentPage() {
-    let left = document.querySelector("#player1-container");
-    let right = document.querySelector("#player2-container");
+    let left = document.querySelector("#player1-grid-container");
+    let right = document.querySelector("#player2-grid-container");
     left.innerHTML = "";
     right.innerHTML = "";
     // grid of avaiable ships
@@ -51,7 +51,6 @@ export function DeployementPage(
     const button = document.createElement("button");
     button.id = "rotation-btn";
     button.textContent = "Rotate";
-    console.log(availableShips + "" + player + "" + rotation);
     button.addEventListener("click", () => {
       renderShipDeploymentPage(availableShips, player);
       rotation = rotation === "vertical" ? "horizontal" : "vertical";
