@@ -1,7 +1,7 @@
 # Battleship
 Implementing the classic game "Battleship" using with a focus on using TDD.
 
-Live Preview: TBD
+Live Preview: https://allanchen-eng.github.io/Battleship/
 
 Project Outcome: Practice the principles of TDD.
 
