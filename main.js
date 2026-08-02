@@ -1,7 +1,7 @@
 import { UIFactory } from "./UIHandler.js";
 import { player } from "./player.js";
 import { DeploymentPage } from "./DeploymentPage.js";
-let fleet = [5, 4, 3, 2];
+let fleet = [5, 4, 3,3, 2];
 let currentTurn;
 const UI = UIFactory();
 
@@ -33,7 +33,6 @@ function startGame() {
   replacementBtn.id = "rotation-btn";
   replacementBtn.textContent = "New Game";
   replacementBtn.addEventListener("click", () => {
-    console.log("initializeGame");
     initializeGame();
     replacementBtn.remove();
   });
@@ -107,7 +106,7 @@ function renderScoreScreen(winner) {
   UI.renderBoardAsAlly(player1);
   UI.renderBoardAsAlly(player2);
 }
-const player1 = player("player1");
-const player2 = player("player2");
+const player1 = player("player1",fleet);
+const player2 = player("player2",fleet);
 initializeGame();
 console.log("main script has been ran");

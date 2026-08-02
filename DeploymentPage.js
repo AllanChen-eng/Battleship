@@ -113,9 +113,7 @@ export function DeploymentPage(
       const rotation = shipData.rotation;
       const row = Number(e.currentTarget.dataset.row);
       const col = Number(e.currentTarget.dataset.column);
-      availableShips = availableShips.filter(
-        (shipLength) => shipLength != length,
-      );
+      availableShips.splice(availableShips.indexOf(length),1);
       tryStartGameButton();
       console.log(availableShips);
       player1.getGameboard().placeShip(length, row, col, rotation);
