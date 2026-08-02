@@ -8,12 +8,17 @@ player2.setScreenName("Computer");
 let currentTurn = player1;
 const UI = UIFactory();
 
-function startGame() {
+function initializeGame() {
   currentTurn = player1;
   UI.setRightsideName(player2.getScreenName());
   player1.makeNewGameboard(10, 10);
   player2.makeNewGameboard(10, 10);
   swapTurn();
+}
+function startGame(){
+    UI.renderBoardAsAlly(player1);
+    UI.renderBoardAsOpponent(player2);
+    setCurrentPlayer(player1);
 }
 function swapTurn() {
   //changes the view to match current player - opponent's board is clickable while
@@ -87,9 +92,9 @@ function renderScoreScreen(winner) {
 const deployment = document.querySelector("#deployment-btn");
 deployment.addEventListener("click",()=>{
 console.log("deployment button hit");
-const deploymentPage = DeployementPage(fleet,player1,"vertical");
+const deploymentPage = DeployementPage(fleet,player1,player2,"vertical",startGame);
 deploymentPage.renderShipDeploymentPage();
 deployment.remove();
 });
-startGame();
+initializeGame();
 console.log("main script has been ran");

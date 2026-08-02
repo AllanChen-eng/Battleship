@@ -1,8 +1,9 @@
+import { UIFactory } from "./UIHandler.js";
 export function DeployementPage(
   availableShips,
-  player,
-  rotation = "horizontal",
+  player1,player2,rotation = "horizontal",startGame
 ) {
+  const ui = new UIFactory();
   function setRightsideName(name) {
     const heading = document.querySelector("#player2-card h3");
     heading.innerHTML = "";
@@ -54,14 +55,24 @@ export function DeployementPage(
     button.id = "rotation-btn";
     button.textContent = "Rotate";
     button.addEventListener("click", () => {
-      renderShipDeploymentPage(availableShips, player);
+      renderShipDeploymentPage(availableShips, player1);
       rotation = rotation === "vertical" ? "horizontal" : "vertical";
     });
     container.appendChild(button);
   }
+
+  function tryStartGameButton() {
+    if (availableShips.length == 0) {
+      const button = document.querySelector("#rotation-btn");
+      button.textContent = "Start Game";
+      button.addEventListener("click", () => {
+        startGame();
+      });
+    }
+  }
   function renderDeployedShips(location) {
     location.innerHTML = "";
-    let newGrid = player.getGameboard().getBoard();
+    let newGrid = player1.getGameboard().getBoard();
     for (let row = 0; row < newGrid.length; row++) {
       for (let column = 0; column < newGrid[0].length; column++) {
         const newDiv = document.createElement("div");
@@ -69,10 +80,10 @@ export function DeployementPage(
         newDiv.setAttribute("class", "gridBox");
         newDiv.dataset.column = column;
         newDiv.dataset.row = row;
-        newDiv.dataset.player = player.getName();
+        newDiv.dataset.player = player1.getName();
         let flexBasis = 100 / newGrid.length;
         newDiv.style.flexBasis = `${flexBasis}%`;
-        let shipPositionsArray = player.getGameboard().getShipPositions();
+        let shipPositionsArray = player1.getGameboard().getShipPositions();
         if (shipPositionsArray[row][column] != null) {
           newDiv.style.backgroundColor = "blue";
         }
@@ -102,9 +113,12 @@ export function DeployementPage(
       const rotation = shipData.rotation;
       const row = Number(e.currentTarget.dataset.row);
       const col = Number(e.currentTarget.dataset.column);
-      availableShips = availableShips.filter((shipLength) => shipLength != length )
+      availableShips = availableShips.filter(
+        (shipLength) => shipLength != length,
+      );
+      tryStartGameButton();
       console.log(availableShips);
-      player.getGameboard().placeShip(length,row,col,rotation)
+      player1.getGameboard().placeShip(length, row, col, rotation);
       renderShipDeploymentPage();
     });
   }
