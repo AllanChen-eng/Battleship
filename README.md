@@ -13,7 +13,7 @@ Development milestones:
 - [x] Start game, swap turns
 - [x] Computer AI moves
 - [x] Deployment page drag and drop for customized game boards.
-- [ ] Randomize Computer placement
+- [x] Randomize Computer placement
 
 Future Development:
 - [ ] Two player hotseat
