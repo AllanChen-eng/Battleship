@@ -1,11 +1,8 @@
 import { UIFactory } from "./UIHandler.js";
 import { player } from "./player.js";
-import { DeployementPage } from "./DeployementPage.js";
-const player1 = player("player1");
-const player2 = player("player2");
-let fleet = [5,4,3,2];
-player2.setScreenName("Computer");
-let currentTurn = player1;
+import { DeploymentPage } from "./DeploymentPage.js";
+let fleet = [5, 4, 3, 2];
+let currentTurn;
 const UI = UIFactory();
 
 function initializeGame() {
@@ -13,12 +10,34 @@ function initializeGame() {
   UI.setRightsideName(player2.getScreenName());
   player1.makeNewGameboard(10, 10);
   player2.makeNewGameboard(10, 10);
-  swapTurn();
+  player2.setAsComputer();
+  const deploymentPage = DeploymentPage(
+    fleet,
+    player1,
+    player2,
+    "vertical",
+    startGame,
+  );
+  deploymentPage.renderShipDeploymentPage();
+  //swapTurn();
 }
-function startGame(){
-    UI.renderBoardAsAlly(player1);
-    UI.renderBoardAsOpponent(player2);
-    setCurrentPlayer(player1);
+function startGame() {
+  UI.setRightsideName(player2.getScreenName());
+  UI.setLeftSideName(player1.getScreenName());
+  UI.renderBoardAsAlly(player1);
+  UI.renderBoardAsOpponent(player2);
+  setCurrentPlayer(player1);
+  const button = document.querySelector("#rotation-btn");
+  button.remove();
+  const replacementBtn = document.createElement("button");
+  replacementBtn.id = "rotation-btn";
+  replacementBtn.textContent = "New Game";
+  replacementBtn.addEventListener("click", () => {
+    console.log("initializeGame");
+    initializeGame();
+    replacementBtn.remove();
+  });
+  document.querySelector("#deployment").append(replacementBtn);
 }
 function swapTurn() {
   //changes the view to match current player - opponent's board is clickable while
@@ -89,12 +108,7 @@ function renderScoreScreen(winner) {
   UI.renderBoardAsAlly(player1);
   UI.renderBoardAsAlly(player2);
 }
-const deployment = document.querySelector("#deployment-btn");
-deployment.addEventListener("click",()=>{
-console.log("deployment button hit");
-const deploymentPage = DeployementPage(fleet,player1,player2,"vertical",startGame);
-deploymentPage.renderShipDeploymentPage();
-deployment.remove();
-});
+const player1 = player("player1");
+const player2 = player("player2");
 initializeGame();
 console.log("main script has been ran");

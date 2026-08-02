@@ -1,5 +1,5 @@
 import { UIFactory } from "./UIHandler.js";
-export function DeployementPage(
+export function DeploymentPage(
   availableShips,
   player1,player2,rotation = "horizontal",startGame
 ) {
@@ -50,15 +50,16 @@ export function DeployementPage(
     left.appendChild(gridContainer);
   }
   function makeRotateShipDeploymentButton() {
+    console.log("here");
     const container = document.querySelector("#deployment");
     const button = document.createElement("button");
     button.id = "rotation-btn";
     button.textContent = "Rotate";
     button.addEventListener("click", () => {
-      renderShipDeploymentPage(availableShips, player1);
       rotation = rotation === "vertical" ? "horizontal" : "vertical";
+      renderShipDeploymentPage(availableShips, player1);
     });
-    container.appendChild(button);
+    container.append(button);
   }
 
   function tryStartGameButton() {

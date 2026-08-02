@@ -106,7 +106,6 @@ export function gameboard() {
   let getShipPositions = ()=>{
     return shipPositions;
   }
-
   return {
     getBoard,
     createBoard,

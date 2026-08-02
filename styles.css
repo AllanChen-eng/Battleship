@@ -23,6 +23,7 @@ body {
   align-items: center;
   justify-content: center;
   aspect-ratio: 1/1;
+  color: lightgray;
 }
 #player1-card,
 #player2-card {

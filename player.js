@@ -1,13 +1,12 @@
 import { gameboard } from "./gameboard.js";
 export function player(name) {
   let board;
-  let screenName;
+  let screenName = "Player One";
+
+
   let makeNewGameboard = (sizeColumns, sizeRows) => {
     board = gameboard();
     board.createBoard(sizeColumns, sizeRows);
-    //for now, we are going to randomly place where ships are placed
-    board.placeShip(3, 0, 0, "vertical");
-    board.placeShip(3, 2, 4, "horizontal");
   };
   let getGameboard = () => {
     return board;
@@ -26,5 +25,11 @@ export function player(name) {
       return name;
     }
   }
-  return { makeNewGameboard, getGameboard, getName, setScreenName, getScreenName };
+  let setAsComputer = ()=>{
+    setScreenName("Computer");
+    //for now, we are going to manually place where ships are placed
+    board.placeShip(3, 0, 0, "vertical");
+    board.placeShip(3, 2, 4, "horizontal");
+  }
+  return { makeNewGameboard, getGameboard, getName, setScreenName, getScreenName, setAsComputer };
 }
