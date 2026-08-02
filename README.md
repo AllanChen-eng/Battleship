@@ -14,3 +14,10 @@ Development milestones:
 - [x] Computer AI moves
 - [x] Deployment page drag and drop for customized game boards.
 - [ ] Randomize Computer placement
+
+Future Development:
+- [ ] Two player hotseat
+- [ ] UX improvement: Drag and drop, ship icon, page resizing
+- [ ] Settings page for grid size, fleet size, and game mode
+- [ ] Reset Deployment Page
+- [ ] "Smart" AI
