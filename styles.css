@@ -22,6 +22,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 1/1;
 }
 #player1-card,
 #player2-card {
@@ -35,7 +36,7 @@ body {
 #player1-grid-container,#player2-grid-container {
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  width: 70%;
   aspect-ratio: 1/1;
 }
 #deployment-grid-container{

@@ -33,7 +33,7 @@ export function gameboard() {
         startColumn < 0 ||
         startColumn + length > shipPositions[0].length
       ) {
-        throw new Error("Invalid placement");
+        throw new Error("Invalid placement horizontal");
       }
 
       for (let column = startColumn; column < startColumn + length; column++) {
@@ -49,7 +49,7 @@ export function gameboard() {
         startColumn < 0 ||
         startRow + length > shipPositions.length
       ) {
-        throw new Error("Invalid placement");
+        throw new Error("Invalid placement vertical");
       }
 
       for (let row = startRow; row < startRow + length; row++) {
