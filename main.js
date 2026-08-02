@@ -6,7 +6,7 @@ let currentTurn;
 const UI = UIFactory();
 
 function initializeGame() {
-  currentTurn = player1;
+  currentTurn = player2;
   UI.setRightsideName(player2.getScreenName());
   player1.makeNewGameboard(10, 10);
   player2.makeNewGameboard(10, 10);
@@ -48,7 +48,6 @@ function swapTurn() {
     UI.renderBoardAsOpponent(player2);
     setCurrentPlayer(player1);
   } else {
-    // for now, just play ai(player2) move
     currentTurn = player1;
     getComputerMove();
   }
@@ -73,7 +72,7 @@ function setCurrentPlayer(player) {
         UI.makeAnnouncement("Ship has been sunk!");
       } else {
         UI.makeAnnouncement(
-          `${player.getName()} targeted cordinates (${column}, ${row})!`,
+          `${player.getScreenName()} targeted cordinates (${column}, ${row})!`,
         );
       }
       if (opponent.getGameboard().hasLost()) {
@@ -97,7 +96,7 @@ function getComputerMove() {
     const col = Math.floor(Math.random() * cols);
     try {
       player1.getGameboard().receiveAttack(row, col);
-      UI.makeAnnouncement(`The Computer has targetted ${col},${row}!`);
+      UI.makeAnnouncement(`The Computer has targeted (${col},${row})!`);
       break;
     } catch {}
   }

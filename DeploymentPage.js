@@ -50,7 +50,6 @@ export function DeploymentPage(
     left.appendChild(gridContainer);
   }
   function makeRotateShipDeploymentButton() {
-    console.log("here");
     const container = document.querySelector("#deployment");
     const button = document.createElement("button");
     button.id = "rotation-btn";
