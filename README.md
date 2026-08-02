@@ -6,5 +6,11 @@ Live Preview: TBD
 Project Outcome: Practice the principles of TDD.
 
 Development milestones:
-- [ ] Write Unit tests for ship class, gameboard class, and player class functions
-- [ ] Implement classes and pass tests
+- [x] Write Unit tests for ship class, game board class, and player class functions
+- [x] Implement classes and pass tests
+- [x] DOM Rendering
+- [x] UI Hit/Miss, game state changes, score screen
+- [x] Start game, swap turns
+- [x] Computer AI moves
+- [x] Deployment page drag and drop for customized game boards.
+- [ ] Randomize Computer placement
