@@ -21,3 +21,4 @@ Future Development:
 - [ ] Settings page for grid size, fleet size, and game mode
 - [ ] Reset Deployment Page
 - [ ] "Smart" AI
+- [ ] Realistic Computer AI ship placement
